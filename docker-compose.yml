@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+  website:
+    image: php:apache
+    volumes:
+      - ./website:/var/www/html
+    depends_on:
+      - API
+    ports:
+      - "8081:8081"
+    networks:
+      - kkaj
+    environment:
+      - USERNAME="achille"
+      - PASSWORD="achille"
+  API:
+    image: python:2.7-stretch
+    volumes:
+      - ./simple_api:/data
+    expose:
+      - "5000"
+    networks:
+      - kkaj
+    restart: "always"
+ 
+networks:
+  kkaj:
